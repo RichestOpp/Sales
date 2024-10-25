@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit salesTable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: skyblue;
+        }
+        .unpaid {
+            background-color: red;
+            color: white;
+        }
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+import pandas as pd
+from datetime import datetime
+
+class Sale:
+    def __init__(self, date, product, quantity, amount, payment):
+        self.date = date
+        self.product = product
+        self.quantity = quantity
+        self.amount = amount
+        self.payment = payment
+        self.total_sales = self.calculate_total_sales()
+
+<body>
+    import pandas as pd
+    from datetime import datetime
+    
+    class Sale:
+        def __init__(self, date, product, quantity, amount, payment):
+            self.date = date
+            self.product = product
+            self.quantity = quantity
+            self.amount = amount
+            self.payment = payment
+            self.total_sales = self.calculate_total_sales()
+    
+        def calculate_total_sales(self):
+            return self.quantity * self.amount
+    
+    # Sample sales data
+    sales_data = [
+        Sale(datetime(2024, 10, 1), "Safaricom", 10, 100, "M-Pesa"),
+        Sale(datetime(2024, 10, 1), "Airtel", 5, 200, "Airtel Money"),
+        Sale(datetime(2024, 10, 1), "Telkom", 8, 150, "T-Kash"),
+        Sale(datetime(2024, 10, 2), "Safaricom", 12, 100, "M-Pesa"),
+        Sale(datetime(2024, 10, 2), "Airtel", 7, 200, "Airtel Money"),
+    ]
+    
+    # Create a DataFrame to hold the sales data
+    df = pd.DataFrame([{
+        "Date": sale.date,
+        "Product": sale.product,
+        "Quantity": sale.quantity,
+        "Amount": sale.amount,
+        "Payment": sale.payment,
+        "Total Sales": sale.total_sales
+    } for sale in sales_data])
+    
+    # Group by date and sum total sales per day
+    daily_sales_summary = df.groupby("Date").agg({
+        "Total Sales": "sum"
+    }).reset_index()
+    
+    # Display the sales table and daily summary
+    print("Sales Table:")
+    print(df)
+    print("\nDaily Sales Summary:")
+    print(daily_sales_summary)
+    <tbody>
+
+        <tr>
+            <td><input type="date"></td>
+            <td>
+                <select onchange="calculateTotal(this)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </td>
+            <td><input type="number" value="0" onchange="calculateTotal(this)" min="0"></td>
+            <td><input type="number" value="0" onchange="calculateTotal(this)" min="0"></td>
+            <td>
+                <select onchange="updateRowColor(this)">
+                    <option value="PAID">PAID</option>
+                    <option value="UNPAID">UNPAID</option>
+                </select>
+            </td>
+            <td><input type="text" value="0" readonly></td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn" onclick="addRow()">Add Row</button>
+
+<script>
+    function calculateTotal(element) {
+        const row = element.closest('tr');
+        const quantity = row.cells[2].querySelector('input').value;
+        const amount = row.cells[3].querySelector('input').value;
+        const totalCell = row.cells[5].querySelector('input');
+
+        // Calculate total
+        totalCell.value = (quantity * amount) || 0;
+    }
+
+    function updateRowColor(select) {
+        const row = select.closest('tr');
+        if (select.value === 'UNPAID') {
+            row.classList.add('unpaid');
+        } else {
+            row.classList.remove('unpaid');
+        }
+    }
+
+    function addRow() {
+        const tableBody = document.getElementById('salesTable').getElementsByTagName('tbody')[0];
+        const newRow = tableBody.insertRow();
+
+        newRow.innerHTML = `
+            <td><input type="date"></td>
+            <td>
+                <select onchange="calculateTotal(this)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </td>
+            <td><input type="number" value="0" onchange="calculateTotal(this)" min="0"></td>
+            <td><input type="number" value="0" onchange="calculateTotal(this)" min="0"></td>
+            <td>
+                <select onchange="updateRowColor(this)">
+                    <option value="PAID">PAID</option>
+                    <option value="UNPAID">UNPAID</option>
+                </select>
+            </td>
+            <td><input type="text" value="0" readonly></td>
+        `;
+    }
+</script>
+
+</body>
+</html>
